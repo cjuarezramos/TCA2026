@@ -15,7 +15,7 @@ deficiencia_angulo = 180 - angle_g_pd
 
 phi = deficiencia_angulo;
 
-zc = 1.1 % elimina el polo en -1 (LA)
+zc = 5 % elimina el polo en -1 (LA)
 
 pc=-real(polo_deseado)+imag(polo_deseado) /tand(angle(polo_deseado+zc)*180/pi-phi)
 

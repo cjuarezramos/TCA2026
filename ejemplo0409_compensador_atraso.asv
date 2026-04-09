@@ -1,0 +1,62 @@
+% ejemplo compensador en atraso
+num = 1.06
+den = conv(conv([1,1],[1,6]),[1,0])
+G = tf(num,den)
+figure(1)
+rlocus(G)
+
+% polos de lazo cerrado del sistema
+T = feedback(G,1)
+denT = T.Denominator{1}
+polos_T = roots(denT)
+
+figure(2)
+step(T)
+
+figure(3)
+t = 0:0.1:30;
+y = lsim(T,t,t);
+plot(t,t,t,y)
+
+% Compensador en atraso
+% se requiere Kv = 5
+Beta = 30 % cumple.
+
+% Gc = (s + 1/T)/(s+1/BetaT)
+sz = 0.06;
+sp = sz/Beta;
+Gc = tf([1,sz],[1,sp])
+
+figure(1)
+hold on
+figure(4)
+rlocus(G*Gc)
+
+
+
+
+Tnueva = feedback(G*Gc,1)
+denTnueva = Tnueva.Denominator{1};
+roots(denTnueva)
+
+figure(2)
+hold on
+step(Tnueva)
+hold off
+
+figure(3)
+y2 = lsim(Tnueva,t,t);
+hold on
+plot(t,y2)
+hold off
+
+syms s
+gc=(s+sz)/(s+sp);
+
+
+Kc = 1.27
+Tnueva2=feedback(Kc*G*Gc,1);
+denTnueva2 = Tnueva2.Denominator{1}
+polosnuevos2 = roots(denTnueva2)
+numTnueva2 = Tnueva2.Numerator{1}
+zerosnueva2=roots(numTnueva2)
