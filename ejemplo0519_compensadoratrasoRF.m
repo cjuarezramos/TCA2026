@@ -15,24 +15,23 @@ margin(G1)
 hold off
 legend('G','G1')
 % Paso 2, desde la gráfica buscar w que si cumpla con MF
-
+w = 0.55; % el valor de fase de G1 = 134°
 % paso 3. Ubicar frecuencia esquina (si se puede una decada por debajo de
 % frecuencia de cruce de ganancia)
-valor_atenuar = 16.2
+sz = 0.55/10; % una decada atrás
+
 % paso 4. Calcular la ganacia que se debe atenuar y calcular B
+valor_atenuar = 17.7
 B = 10^(valor_atenuar/20)
 
 % paso 5. calcular otra frecuencia esquina
-
+sp = sz/B
 
 % paso 6. Calcular Kc
-
-Kc = 0.7744;
-sz = 0.063
-sp = sz/B
+Kc = K /B
 Gc = Kc * tf([1,sz],[1,sp])
 
-figure(1)
+figure(2)
 bode(G)
 hold on
 bode(Gc)
