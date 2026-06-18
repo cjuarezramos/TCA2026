@@ -1,5 +1,5 @@
 % Representación en espacio de estados.
-R = 1;
+R = 100;
 L = 3;
 Cap = 0.1;
 A = [-R/L,-1/L;
@@ -34,3 +34,22 @@ xlabel('Tiempo (s)')
 plot(t,y(:,4))
 title('Tensión del inductor')
 xlabel('Tiempo (s)')
+
+% Autovalores
+[V,D_lambda] = eig(A)
+
+% Autovector derecho
+V
+
+% Controlabilidad
+Co = ctrb(A,B)
+rank_Co = rank(Co)
+
+%observabilidad
+Ob = obsv(A,C)
+rank_Ob = rank(Ob)
+
+% Autovector izquierdo
+W = inv(V)
+
+P = V.*W
