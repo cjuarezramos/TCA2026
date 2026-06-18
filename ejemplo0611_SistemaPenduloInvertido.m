@@ -8,3 +8,4 @@ f = [-bs*pxs-ms*ls*pths^2*sin(ths)+Fs;
 
 p2x = det([f,E(:,2)])/det(E)
 p2th = det([E(:,1),f])/det(E)
+
